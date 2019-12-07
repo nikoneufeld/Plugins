@@ -16,7 +16,7 @@ public struct PluginContainer<PluginType> {
         
     }
     
-    mutating func add(_ p: Plugin<PluginType>) {
+    mutating func add(_ p: @escaping Plugin<PluginType>) {
         self.pluginsArray.append(p)
     }
     
