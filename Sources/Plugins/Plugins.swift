@@ -20,6 +20,9 @@ public struct PluginContainer<PluginType> {
         self.pluginsArray.append(p)
     }
     
+    /// Initializes the container, No parameter needed
+    public init() {}
+    
 }
 
 /// A type that has plugin support
