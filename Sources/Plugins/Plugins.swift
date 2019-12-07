@@ -16,8 +16,8 @@ public struct PluginContainer<PluginType> {
         
     }
     
-    func add(_ p: Plugin<PluginType>) {
-        pluginsArray.append(p)
+    mutating func add(_ p: Plugin<PluginType>) {
+        self.pluginsArray.append(p)
     }
     
 }
