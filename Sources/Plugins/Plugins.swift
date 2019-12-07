@@ -1,5 +1,5 @@
 /// The plugin type.  A plugin is someting that acepts an object, then modifies it, then returns it.
-public typealias Plugin<Modified> = (Modified) -> Modified
+public typealias Plugin<Modified> = (inout Modified) -> Modified
 public typealias Modifier<Modified> = Plugin<Modified>
 
 /// The container which holds multiple plugins. Can apply all its plugins in  one go.
@@ -9,14 +9,14 @@ public struct PluginContainer<PluginType> {
     public var pluginsArray = [Plugin<PluginType>]()
     /// Applies all the plugins to modified.
     /// - Parameter modified: The Object where you want to apply everything
-    func applyPlugins(to modified: inout PluginType) {
+    public func applyPlugins(to modified: inout PluginType) {
         for plugin in pluginsArray {
-            modified = plugin(modified)
+            modified = plugin(&modified)
         }
         
     }
     
-    mutating func add(_ p: @escaping Plugin<PluginType>) {
+    mutating public func add(_ p: @escaping Plugin<PluginType>) {
         self.pluginsArray.append(p)
     }
     
@@ -35,7 +35,7 @@ public protocol Pluginable {
 
 public extension Pluginable {
     /// Applies all the plugins in it's plugin container
-    mutating func applyAllPlugins() {
+    public mutating func applyAllPlugins() {
         plugins.applyPlugins(to: &self)
     }
 }
@@ -46,7 +46,7 @@ public extension PluginApplieble {
     /// Applies the plugin to its self
     /// - Parameter plugin: The plugin that you want to apply
     mutating func applyPlugin(_ plugin:  Plugin<Self>) {
-        self = plugin(self)
+        self = plugin(&self)
     }
     /// Applies multiple plugins to it's self
     /// - Parameter plugins: An  varadic array of plugins. VARADIC!!
