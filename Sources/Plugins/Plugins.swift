@@ -1,5 +1,6 @@
 /// The plugin type.  A plugin is someting that acepts an object, then modifies it, then returns it.
 public typealias Plugin<Modified> = (Modified) -> Modified
+public typealias Modifier<Modified> = Plugin<Modified>
 
 /// The container which holds multiple plugins. Can apply all its plugins in  one go.
 public struct PluginContainer<PluginType> {
