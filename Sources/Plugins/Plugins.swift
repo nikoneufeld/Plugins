@@ -16,6 +16,10 @@ public struct PluginContainer<PluginType> {
         
     }
     
+    func add(_ p: Plugin<PluginType>) {
+        pluginsArray.append(p)
+    }
+    
 }
 
 /// A type that has plugin support
