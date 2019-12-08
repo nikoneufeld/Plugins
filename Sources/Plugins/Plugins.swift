@@ -15,7 +15,8 @@ public struct PluginContainer<PluginType> {
         }
         
     }
-    
+    /// Adds a plugin to the plugin array
+    /// - Parameter p: The plugin
     mutating public func add(_ p: @escaping Plugin<PluginType>) {
         self.pluginsArray.append(p)
     }
@@ -25,13 +26,12 @@ public struct PluginContainer<PluginType> {
     
 }
 
-/// A type that has plugin support
+/// A type that has plugin support. It has an array of plugins.
 public protocol Pluginable {
     /// The only reqiurement of the protocol. A plugin container which contains all the plugins. Should be applied when neccesary
     var plugins: PluginContainer<Self> {get set}
     
 }
-
 
 public extension Pluginable {
     /// Applies all the plugins in it's plugin container
@@ -65,4 +65,10 @@ public extension PluginApplieble {
            
            }
 
+}
+
+/// A type which has a plugin. Used for DSL's
+/// Here is an example.
+public protocol StaticPluginable {
+    var plugin: Plugin<Self> {get}
 }
